@@ -2,10 +2,7 @@
     $atts = shortcode_atts(array(
 		'show_icon' => 0,
         'type' => 'remixicon',
-        'icon_fontawesome1' => 'ri-home-6-line',
-        'icon_fontawesome2' => 'ri-home-6-line',
-        'icon_fontawesome3' => 'ri-home-6-line',
-        'icon_fontawesome4' => 'ri-home-6-line',
+        'icon_fontawesome' => '',
         'color' => '',
         'custom_color' => '',
 		'about_title_one' => '',
@@ -23,15 +20,13 @@
         'position_image' => 0,
         'image' => '',
         'image_size' => '830x470',
-        'el_class' => ''
+        'el_class' => '',
+		'type_statistics' => 'image'
     ), $atts);
 
     $show_icon			= $atts['show_icon'];
 	$type				= $atts['type'];
-	$iconClass1	        = $atts['icon_fontawesome1'];
-	$iconClass2	        = $atts['icon_fontawesome2'];
-	$iconClass3	        = $atts['icon_fontawesome3'];
-	$iconClass4	        = $atts['icon_fontawesome4'];
+	$iconClass	        = $atts['icon_fontawesome'];
 	$about_title_one	= $atts['about_title_one'];
     $about_number_one	= $atts['about_number_one'];
 	$about_title_two	= $atts['about_title_two'];
@@ -48,6 +43,7 @@
 	$image				= $atts['image'];
 	$image_size			= $atts['image_size'];
     $el_class			= $atts['el_class'];
+	$type_statistics	= $atts['type_statistics'];
 
 	vc_icon_element_fonts_enqueue( $type );
 
@@ -56,9 +52,16 @@
 	$img = wpb_getImageBySize( array( 'attach_id' => $img_id, 'thumb_size' => $image_size, 'class' => 'bodytext-image rounder-8' ) );
 	ob_start();
 	?>
+
+    <?php if($type_statistics === 'image'){?>
+        <?php echo "image";?>
+    <?php }else{?>
+        <?php echo "no-image";?>
+    <?php }?>
+
 	<?php if($position_image === 0):?>
-		<div class="nex-about-us align-image-left <?php echo esc_html(implode(' ', $class));?>">
-			<div>
+		<div class="nex-about-us align-image-left ">
+			<div class="<?php echo !empty($image) ? 'row' : ''; ?>">
                 <?php if(!empty($image)) { ?>
 				<div class="col-xs-12 col-md-6">
 					<div class="nex-about-us-image">
@@ -66,12 +69,13 @@
 					</div>
 				</div>
                 <?php } ?>
-				<div class="nex-about-us-default">
+                <div class="<?php echo !empty($image) ? 'col-xs-12 col-md-6' : ''; ?>">
+				    <div class="nex-about-us-default">
 						<?php if(!empty($title)){?>
 							<h4 class="nex-about-us-title text-primary-color"><?php echo esc_html($title);?></h4>
 						<?php }?>
                         <div class="row">
-                            <div class="col-xs-3 col-md-3">
+                            <div class="<?php echo !empty($image) ? ' col-xs-12 col-md-6' : 'col-xs-3 col-md-3'; ?>">
                                 <div class="next-about-us-icon">
                                     <?php if($show_icon === '1'){?>
                                         <div class="nex-about-us-icon">
@@ -90,7 +94,7 @@
                                     <?php }?>
                                 </div>
                             </div>
-                            <div class="col-xs-3 col-md-3">
+                            <div class="<?php echo !empty($image) ? ' col-xs-12 col-md-6' : 'col-xs-3 col-md-3'; ?>">
                                 <div class="next-about-us-icon">
                                     <?php if($show_icon === '1'){?>
                                         <div class="nex-about-us-icon">
@@ -109,7 +113,7 @@
                                     <?php }?>
                                 </div>
                             </div>
-                            <div class="col-xs-3 col-md-3">
+                            <div class="<?php echo !empty($image) ? ' col-xs-12 col-md-6' : 'col-xs-3 col-md-3'; ?>">
                                 <div class="next-about-us-icon">
                                     <?php if($show_icon === '1'){?>
                                         <div class="nex-about-us-icon">
@@ -128,7 +132,7 @@
                                     <?php }?>
                                 </div>
                             </div>
-                            <div class="col-xs-3 col-md-3">
+                            <div class="<?php echo !empty($image) ? ' col-xs-12 col-md-6' : 'col-xs-3 col-md-3'; ?>">
                                 <div class="next-about-us-icon">
                                     <?php if($show_icon === '1'){?>
                                         <div class="nex-about-us-icon">
@@ -149,13 +153,14 @@
                             </div>
                         </div>
 					</div>
+                </div>
 				<?php if($show_button === '1'):?>
 					<a class="nex-about-us-button text-primary-color border-primary-color rounder-3" href="<?php echo esc_url($button_link);?>"><?php echo esc_html($button_name);?></a>
 				<?php endif;?>
 			</div>
 		</div>
 	<?php else:?>
-		<div class="nex-about-us align-image-right <?php echo esc_html(implode(' ', $class)); ?>">
+		<div class="nex-about-us align-image-right ">
 			<div class="row">
 				<div class="col-xs-12 col-md-6">
 					<?php if(!empty($title)){?>
@@ -166,7 +171,7 @@
                             <div class="next-about-us-icon">
                                 <?php if($show_icon === '1'){?>
                                     <div class="nex-about-us-icon">
-                                        <span class="primary-color nex-element-icon <?php echo esc_html( $iconClass1 ) ?>" ></span>
+                                        <span class="primary-color nex-element-icon <?php echo esc_html( $iconClass ) ?>" ></span>
                                     </div>
                                 <?php }?>
                                 <?php if(!empty($about_title_one) || !empty($about_number_one)){?>
@@ -185,7 +190,7 @@
                             <div class="next-about-us-icon">
                                 <?php if($show_icon === '1'){?>
                                     <div class="nex-about-us-icon">
-                                        <span class="primary-color nex-element-icon <?php echo esc_html( $iconClass2 ) ?>" ></span>
+                                        <span class="primary-color nex-element-icon <?php echo esc_html( $iconClass ) ?>" ></span>
                                     </div>
                                 <?php }?>
                                 <?php if(!empty($about_title_two) || !empty($about_number_two)){?>
@@ -204,7 +209,7 @@
                             <div class="next-about-us-icon">
                                 <?php if($show_icon === '1'){?>
                                     <div class="nex-about-us-icon">
-                                        <span class="primary-color nex-element-icon <?php echo esc_html( $iconClass3 ) ?>" ></span>
+                                        <span class="primary-color nex-element-icon <?php echo esc_html( $iconClass ) ?>" ></span>
                                     </div>
                                 <?php }?>
                                 <?php if(!empty($about_title_three) || !empty($about_number_three)){?>
@@ -223,7 +228,7 @@
                             <div class="next-about-us-icon">
                                 <?php if($show_icon === '1'){?>
                                     <div class="nex-about-us-icon">
-                                        <span class="primary-color nex-element-icon <?php echo esc_html( $iconClass4 ) ?>" ></span>
+                                        <span class="primary-color nex-element-icon <?php echo esc_html( $iconClass ) ?>" ></span>
                                     </div>
                                 <?php }?>
                                 <?php if(!empty($about_title_four) || !empty($about_number_four)){?>

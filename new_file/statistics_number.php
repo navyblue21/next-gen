@@ -24,7 +24,6 @@ function ng_statistics_number_func($atts) {
 
     $class = array($el_class);	
 	ob_start();
-    // var_dump($type);
     if($type === 'title'){?>
         <div class="ng-statistic-numbers-title <?php echo esc_html(implode(' ', $class)); ?>">
 			<div class="row">
@@ -49,10 +48,9 @@ function ng_statistics_number_func($atts) {
                 </div>
             </div>
 		</div>
-    <?php }else{
-        echo "no title";?>
+    <?php }else{?>
         <div class="ng-statistic-numbers <?php echo esc_html(implode(' ', $class)); ?>">
-			<div class="row">                
+			<div class="row w-100 justify-content-center">                
                 <ul class="ng-statistic-number-list">
                     <li>
                         <h4 class="ng-statistic-number"><?php echo esc_html($number1); ?></h4>
